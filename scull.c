@@ -1,5 +1,28 @@
 #include "scull.h"
 
+void print_buffer(const char *buffer, size_t length)
+{
+	size_t i;
+	char *bytes;
+	
+	bytes = (char *)kmalloc((length+1)*sizeof(char), GFP_KERNEL);
+	
+	if (bytes == NULL) {
+		printk(KERN_ERR "Failed to allocate memory\n");
+		return;
+	}
+	
+	for (i = 0; i < length; i++) {
+		bytes[i] = buffer[i];
+	}
+	bytes[length] = '\0';	
+	
+	printk(KERN_INFO "Buffer contents: %s", bytes);
+	
+	kfree(bytes);
+}
+
+
 int scull_open (struct inode *pinode, struct file *pfile)
 {
 	printk(KERN_INFO "%s called\n", __FUNCTION__);
@@ -10,6 +33,9 @@ int scull_open (struct inode *pinode, struct file *pfile)
 ssize_t scull_read (struct file *pfile, char __user *buffer, size_t length, loff_t *offset)
 {
 	printk(KERN_INFO "%s called\n", __FUNCTION__);
+	
+	print_buffer(buffer, length);
+	
 	return 0;
 }
 
@@ -17,6 +43,9 @@ ssize_t scull_read (struct file *pfile, char __user *buffer, size_t length, loff
 ssize_t scull_write(struct file *pfile, const char __user *buffer, size_t length, loff_t *offset)
 {
 	printk(KERN_INFO "%s called\n", __FUNCTION__);
+	
+	print_buffer(buffer, length);
+	
 	return length;
 }
 

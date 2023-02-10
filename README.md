@@ -24,4 +24,4 @@ SCULL is an region is memory that the kernel treats as if it was device or memor
 
 ### Testing
 
-After loading and creating the device in /dev/, test with `cat /dev/scull` while monitoring with `sudo tail -f /var/log/syslog`.
+After loading and creating the device in /dev/, test with `cat /dev/scull` while monitoring with `sudo tail -f /var/log/syslog` for open-read-close and, as root, `echo "testing" > /dev/scull` for open-write-close.
