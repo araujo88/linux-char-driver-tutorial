@@ -20,3 +20,8 @@ SCULL is an region is memory that the kernel treats as if it was device or memor
  - `cat /proc/devices` <br>
  - `sudo tail -f /var/log/syslog` <br>
  - `sudo mknod -m 666 /dev/scull c <MAJOR_NUMBER> <MINOR_NUMBER>` <br>
+ - `sudo rm /dev/scull` <br>
+
+### Testing
+
+After loading and creating the device in /dev/, test with `cat /dev/scull` while monitoring with `sudo tail -f /var/log/syslog`.
